@@ -5,25 +5,25 @@ Python CLI "OS"
 Run `help` for a list of commands, such as:
 - exit                     
 > Self explanatory.
-- cd <dir-
+- cd <dir>
 > Change directory (use 'cd ..' to go up; 'cd /' for root).
 - ls
 > List files and directories in the current directory.
 - clear
 > Clear the terminal screen.
-- cat <file-
+- cat <file>
 > Display the contents of a file.
 - mkdir <dir-
 > Create a new directory.
-- nano <file-
+- nano <file>
 > Open the nano-like text editor for a file.
-- rm <target-
+- rm <target>
 > Remove a file or directory.
-- find <pattern-
+- find <pattern>
 > Recursively search for files and directories matching a pattern.
 - apt update
-> Update the system.
+> Update the system>
 - neofetch
 > Display system information.
-- apt install <package-
+- apt install <package>
 > Install a new package.
