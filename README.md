@@ -1,0 +1,2 @@
+# FuadeOS
+Python CLI "OS"
