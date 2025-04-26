@@ -293,7 +293,11 @@ def exec_custom(command, current_directory):
             print(f"Module '{module_name}' has no run() function.")
     except Exception as e:
         print(f"Error running '{module_name}': {e}")
-
+        
+# Troubleshooting
+def run(command, current_directory):
+    print("Cannot run command.")
+    
 # Version info
 version = "1.0.0"
 codename = "Cherry"
