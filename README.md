@@ -9,7 +9,7 @@ Run `help` for a list of commands.
 
 # Installing packages
 run `apt install <package-name>` to install packages, such as:
-> echo (print anything to the console)
-- Usage: `echo <text>`
-> greet (greet anyone)
-- Usage: `greet <name>`
+- echo (print anything to the console)
+> Usage: `echo <text>`
+- greet (greet anyone)
+> Usage: `greet <name>`
