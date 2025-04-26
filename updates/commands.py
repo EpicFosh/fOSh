@@ -237,7 +237,7 @@ def apt_install(command):
         return
     pkg = parts[2].strip()
     if pkg in ('main', 'commands'):
-        print(f"Error: Cannot install reserved package name '{pkg}'.")
+        print(f"Error: Cannot install package.")
         return
     url = f"https://raw.githubusercontent.com/FusionCore-Corp/FuadeOS/refs/heads/main/{pkg}.py"
     print(f"Installing/Updating '{pkg}' from {url}...")
@@ -246,7 +246,7 @@ def apt_install(command):
         pkg_path = os.path.join(ROOT_DIR, f"{pkg}.py")
         with open(pkg_path, 'w') as f:
             f.write(data)
-        print(f"Package '{pkg}' installed in root directory.")
+        print(f"Package '{pkg}' installed.")
     except Exception as e:
         print(f"Error installing '{pkg}': {e}")
 
@@ -258,7 +258,7 @@ def apt_uninstall(command):
         return
     pkg = parts[2].strip()
     if pkg in ('main', 'commands'):
-        print(f"Error: Cannot uninstall core package '{pkg}'.")
+        print(f"Error: Cannot uninstall package.")
         return
     pkg_path = os.path.join(ROOT_DIR, f"{pkg}.py")
     if not os.path.exists(pkg_path):
