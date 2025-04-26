@@ -13,3 +13,6 @@ run `apt install <package-name>` to install packages, such as:
 > Usage: `echo <text>`
 - greet (greet anyone)
 > Usage: `greet <name>`
+
+# Images
+![FuadeOS Screenshot](./images/1.png)
