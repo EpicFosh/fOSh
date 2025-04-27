@@ -223,7 +223,7 @@ def neofetch():
     print(f"{white}{'-'*46}{reset}")
     print(f"{lime}   _-@@@@@@@@-_     OS:{white} FuadeOS 1.0.0{reset} (Cherry)")
     print(f"{lime}  +@@@{white}██████{lime}@@@+    Kernel Version:{white} 3.13.2{reset}")
-    print(f"{lime} *@@@@{white}██{lime}@@@@@@@@*   Commands:{white} 10{reset}")
+    print(f"{lime} *@@@@{white}██{lime}@@@@@@@@*          System Commands:{white} 14{reset}")
     print(f"{lime} *@@@@{white}██████{lime}@@@@*   Host:{white} root{reset}")
     print(f"{lime} *@@@@{white}██{lime}@@@@@@@@*   Shell:{white} Python CLI{reset}")
     print(f"{lime}  +@@@{white}██{lime}@@@@@@@+    Version:{white} 1.0.0{reset}")
