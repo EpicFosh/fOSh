@@ -10,7 +10,7 @@ ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 # Version info
 
 def version_info():
-    return "1.0.0", "Cherry"
+    return "1.1", "Blueberry"
 
 version, codename = version_info()
 
@@ -44,7 +44,10 @@ Available Commands:
   cat <file>                    - Display the contents of a file.
   mkdir <directory>             - Create a new directory.
   nano <file>                   - Open the nano-like text editor for a file.
-  rm <target>                   - Remove a file or directory (protects core files).
+  rm <target>                   - Remove a file or directory.
+  cp <source> <destination>     - Copy a file to a new location.
+   mv <source> <destination>    - Move or rename a file.
+   wget <url> [filename]        - Download a file from the given URL.
   find <pattern>                - Recursively search for files/directories matching a pattern.
   apt update                    - Update the system from remote source.
   apt install <package-name>    - Download and install a Python package into root directory.
@@ -336,7 +339,7 @@ def apt_uninstall(command, current_directory=None):
 
 def apt_update(command=None, current_directory=None):
     base_url = "https://raw.githubusercontent.com/FusionCore-Corp/FuadeOS/refs/heads/main/updates/"
-    files = ["commands.py"]
+    files = ["commands.py", "main.py"]
     for fname in files:
         url = base_url + fname
         print(f"Updating '{fname}' from {url}...")
@@ -374,6 +377,95 @@ def exec_custom(command, current_directory):
     except Exception as e:
         print(f"Error running '{module_name}': {e}")
 
+def wget(command, current_directory):
+    parts = command.split(maxsplit=2)
+    if len(parts) < 2:
+        print("Usage: wget <url> [filename]")
+        return
+    url = parts[1].strip()
+    # Determine filename
+    if len(parts) == 3:
+        filename = parts[2].strip()
+    else:
+        filename = os.path.basename(urllib.request.urlparse(url).path) or "index.html"
+    try:
+        file_path = resolve_path(filename, current_directory)
+    except PermissionError as pe:
+        print(pe)
+        return
+
+    try:
+        # Download to a temp file first
+        tmp = file_path + ".tmp"
+        with urllib.request.urlopen(url) as resp, open(tmp, 'wb') as out:
+            out.write(resp.read())
+        os.replace(tmp, file_path)
+        print(f"Downloaded '{url}' to '{filename}'.")
+    except urllib.error.HTTPError as he:
+        print(f"HTTP error: {he.code} {he.reason}")
+    except urllib.error.URLError as ue:
+        print(f"URL error: {ue.reason}")
+    except Exception as e:
+        print(f"Error downloading '{url}': {e}")
+
+def cp(command, current_directory):
+    parts = command.split(maxsplit=2)
+    if len(parts) < 3:
+        print("Usage: cp <source> <destination>")
+        return
+    src = parts[1].strip()
+    dst = parts[2].strip()
+    try:
+        src_path = resolve_path(src, current_directory)
+        dst_path = resolve_path(dst, current_directory)
+    except PermissionError as pe:
+        print(pe)
+        return
+
+    if not os.path.exists(src_path):
+        print(f"Source '{src}' not found.")
+        return
+    if os.path.isdir(src_path):
+        print(f"Error: '{src}' is a directory. Use recursive copy if desired.")
+        return
+
+    # If destination is a directory, copy into it
+    if os.path.isdir(dst_path):
+        dst_path = os.path.join(dst_path, os.path.basename(src_path))
+
+    try:
+        shutil.copy2(src_path, dst_path)
+        print(f"Copied '{src}' to '{dst}'.")
+    except Exception as e:
+        print(f"Error copying '{src}' to '{dst}': {e}")
+
+def mv(command, current_directory):
+    parts = command.split(maxsplit=2)
+    if len(parts) < 3:
+        print("Usage: mv <source> <destination>")
+        return
+    src = parts[1].strip()
+    dst = parts[2].strip()
+    try:
+        src_path = resolve_path(src, current_directory)
+        dst_path = resolve_path(dst, current_directory)
+    except PermissionError as pe:
+        print(pe)
+        return
+
+    if not os.path.exists(src_path):
+        print(f"Source '{src}' not found.")
+        return
+
+    # If destination is a directory, move into it
+    if os.path.isdir(dst_path):
+        dst_path = os.path.join(dst_path, os.path.basename(src_path))
+
+    try:
+        shutil.move(src_path, dst_path)
+        print(f"Moved '{src}' to '{dst}'.")
+    except Exception as e:
+        print(f"Error moving '{src}' to '{dst}': {e}")
 
 def run(command, current_directory):
     print("Command not recognized. Type 'help' for list of commands.")
