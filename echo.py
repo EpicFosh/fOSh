@@ -1,6 +1,6 @@
 # echo.py
 
-def run(command, current_directory):
+def main(command, current_directory):
     parts = command.split(maxsplit=1)
     if len(parts) < 2:
         print("Usage: echo <text>")
