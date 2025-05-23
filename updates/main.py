@@ -1,66 +1,40 @@
+# main.py
+
 import os
-import sys
-import importlib
-import commands
+from core import dispatch, version, codename
 
-ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
-
-def get_prompt(current_directory):
-    if current_directory == ROOT_DIR:
+def get_prompt(cwd):
+    ROOT = os.path.dirname(os.path.realpath(__file__))
+    if cwd == ROOT:
         return "~"
-    else:
-        rel_path = os.path.relpath(current_directory, ROOT_DIR)
-        return os.path.join("~", rel_path)
+    return os.path.join("~", os.path.relpath(cwd, ROOT))
 
 def shell():
-    current_directory = ROOT_DIR
-    while True:
-        command = input(f"{get_prompt(current_directory)} $ ").strip()
-        if not command:
-            continue
+    ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
+    cwd = ROOT_DIR
 
-        if command.lower() == "exit":
-            commands.exit_shell(command)
-        elif command == "help":
-            commands.help()
-        elif command.startswith("cd"):
-            current_directory = commands.cd(command, current_directory)
-        elif command == "ls":
-            commands.ls(command, current_directory)
-        elif command == "clear":
-            commands.clear()
-        elif command.startswith("cat"):
-            commands.cat(command, current_directory)
-        elif command.startswith("mkdir"):
-            commands.mkdir(command, current_directory)
-        elif command.startswith("nano"):
-            commands.nano(command, current_directory)
-        elif command.startswith("rm"):
-            commands.rm(command, current_directory)
-        elif command.startswith("find"):
-            commands.find(command, current_directory)
-        elif command.startswith("wget"):
-            commands.wget(command, current_directory)
-        elif command.startswith("cp"):
-            commands.cp(command, current_directory)
-        elif command.startswith("mv"):
-            commands.mv(command, current_directory)
-
-        elif command == "apt update":
-            commands.apt_update()
-            importlib.reload(commands)
-        elif command.startswith("apt install"):
-            commands.apt_install(command)
-        elif command.startswith("apt uninstall"):
-            commands.apt_uninstall(command)
-
-        elif command == "neofetch":
-            commands.neofetch()
-        else:
-            commands.exec_custom(command, current_directory)
-
-if __name__ == "__main__":
-    print(f'FuadeOS™ "{commands.codename}" ({commands.version})')
+    print(f'FuadeOS™ "{codename}" ({version})')
     print("Copyright© 2025, FusionCore Corporation™. All rights reserved.")
     print('Type "help" for a list of commands.')
+
+    while True:
+        try:
+            cmd = input(f"{get_prompt(cwd)} $ ").strip()
+            if not cmd:
+                continue
+
+            dispatch(cmd, cwd)
+            # capture directory changes from `cd`
+            from core import last_cwd
+            if last_cwd:
+                cwd = last_cwd
+
+        except KeyboardInterrupt:
+            print("\nUse 'exit' to quit.")
+        except EOFError:
+            print("\nExiting shell.")
+            break
+
+if __name__ == "__main__":
     shell()
+    
