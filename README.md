@@ -1,8 +1,13 @@
 # FuadeOS
 Python CLI "OS"
 
-## There is only one release, which is the base system.
-## After downloading, please run `apt update`to make sure the system is updated.
+# Post-download instructions
+So, I've decided to completely scrap all of the previous instructions.
+These are the new ones.
+Instructions:
+After installing, run `apt update` to make sure the system is up to date.
+**What Changed?**
+Instead of downloading the oldest version and you running the update command, I will now add more releases into the releases tab for newer versions instead of having you download 1.0 then update it to the latest version.
 
 # Commands
 Run `help` for a list of commands.
