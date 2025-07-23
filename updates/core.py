@@ -9,7 +9,7 @@ import shutil
 
 # ─── version info ──────────────────────────────────────────────────────────────
 def version_info():
-    return "1.1", "Blueberry"
+    return "1.0", "Potato (Based off of FuadeOS 1.1)"
 version, codename = version_info()
 
 # ─── paths & utils ─────────────────────────────────────────────────────────────
