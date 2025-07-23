@@ -12,6 +12,12 @@ Nothing. It just launched.
 # Commands
 Run `help` for a list of commands.
 
+# Packages List
+- 8ball
+- echo
+- greet
+- numgen (random number generator)
+
 # Installing packages
 run `apt install <package-name>` to install packages, such as:
 - echo (print anything to the console)
