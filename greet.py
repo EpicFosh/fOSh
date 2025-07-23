@@ -6,4 +6,4 @@ def main(command, current_directory):
         print("Usage: greet <name>")
         return
     name = parts[1].strip()
-    print(f"Hey {name}, what's up?")
+    print(f"Hi, {name}!")
