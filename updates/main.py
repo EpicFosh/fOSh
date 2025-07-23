@@ -13,8 +13,8 @@ def shell():
     ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
     cwd = ROOT_DIR
 
-    print(f'FuadeOS™ "{codename}" ({version})')
-    print("Copyright© 2025, FusionCore Corporation™. All rights reserved.")
+    print(f'fOSh 1.0™ "{codename}" ({version})')
+    print("Copyright© 2025, EpicFosh. All rights reserved.")
     print('Type "help" for a list of commands.')
 
     while True:
