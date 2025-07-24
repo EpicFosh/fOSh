@@ -14,6 +14,7 @@ Run `help` for a list of commands.
 
 # Packages List
 - 8ball
+- calc
 - echo
 - greet
 - numgen (random number generator)
